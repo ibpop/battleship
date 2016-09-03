@@ -3,6 +3,7 @@ package model;
 import view.GridPanel;
 
 import java.util.ArrayList;
+import view.MainFrame;
 
 /**
  * Created by Mateo on 2016-05-26.
@@ -30,6 +31,15 @@ public class Player {
 
         for(int i =0; i < shipToSet.length; i++)
             mastLeftNumber += (i+1) * shipToSet[i];
+    }
+    
+    public int getNumberOfShips(){
+        int number = 0;
+        for(Ship s : myShips){
+            if(!s.isSunk())
+                number++;
+        }
+        return number;
     }
 
     public int getShipSizeToSet(){
@@ -68,6 +78,9 @@ public class Player {
                 if(ship.contains(rowNumber, columnNumber) && ship.isSunk()){
                     ship.sunk();
                     lastShootDestructive = true;
+                    MainFrame mainFrame = MainFrame.getInstance();
+                    int shipsLeft = getNumberOfShipsToSet();
+                    mainFrame.getSpaceShipsPanel().getGamePanel().setLabel(shipsLeft);
                 }
             }
             mastLeftNumber -= 1;
@@ -89,7 +102,7 @@ public class Player {
             return false;
     }
     
-    public int getNumberOfShips(){
+    public int getNumberOfShipsToSet(){
         int number = 0;
         
         for(int i = 0; i < shipToSet.length; i++)

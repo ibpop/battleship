@@ -12,6 +12,14 @@ public class MainFrame extends JFrame {
 
     private MenuPanel menuPanel;
     private GamePanel myShipPanel, enemyShipPanel;
+
+    public GamePanel getEnemyShipPanel() {
+        return enemyShipPanel;
+    }
+
+    public GamePanel getMyShipPanel() {
+        return myShipPanel;
+    }
     private SpaceShipPanel spaceShipsPanel;
     private JPanel allPanel;
     private JMenuBar menuBar;
@@ -31,7 +39,9 @@ public class MainFrame extends JFrame {
         playerPanel = new PlayerPanel();
 
         myShipPanel = new GamePanel("Moje statki");
+        myShipPanel.setLabel(5);
         enemyShipPanel = new GamePanel("Statki wroga");
+        enemyShipPanel.setLabel(5);
         spaceShipsPanel = new SpaceShipPanel();
 
         allPanel = new JPanel();

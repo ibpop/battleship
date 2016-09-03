@@ -16,10 +16,21 @@ public class GamePanel extends JPanel {
     private char [] alphabet;
     private int alphabetIndex = 0;
     private JLabel label;
+    private String panelName;
 
+    public String getPanelName() {
+        return panelName;
+    }
+
+    public void setLabel(int numberOfShips){
+        
+        label.setText(this.panelName + ": " + Integer.toString(numberOfShips));
+    }
+    
     public GamePanel(String panelName){
         super();
-
+        
+        this.panelName = panelName;
         label = new JLabel(panelName);
 
         alphabet = new char[10];

@@ -69,7 +69,8 @@ public class Ship {
 
     public boolean isSunk(){
         for(MyRectangle rect : myRectangles){
-            if(rect.getStatus() != MyRectangle.Status.HIT)
+            if(rect.getStatus() != MyRectangle.Status.HIT && 
+               rect.getStatus() != MyRectangle.Status.SUNK)
                 return false;
         }
         return true;
