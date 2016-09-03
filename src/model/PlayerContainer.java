@@ -15,6 +15,11 @@ public class PlayerContainer {
 
     private static PlayerContainer playerContainer = new PlayerContainer();
     private PlayerType currentPlayerType;
+    private PlayerType enemy;
+
+    public Player getEnemyPlayer(){
+        return playersMap.get(enemy);
+    }
     private Map<PlayerType, Player> playersMap;
     private static GameState gameState;
     private GameMode gameMode;
@@ -23,6 +28,7 @@ public class PlayerContainer {
     private PlayerContainer(){
         playersMap = new EnumMap<PlayerType, Player>(PlayerType.class);
         currentPlayerType = PlayerType.ME;
+        enemy = PlayerType.ENEMY;
     }
 
     public static PlayerContainer getInstance(){
@@ -77,7 +83,7 @@ public class PlayerContainer {
         playersMap.get(PlayerType.ME).shoot(rowNumber, columnNumber);
         ComputerPlayer computerPlayer = (ComputerPlayer) playersMap.get(PlayerType.ENEMY);
         computerPlayer.setLastShootStatus(playersMap.get(PlayerType.ME).getMyRectangles().getRectangle(rowNumber, columnNumber).getStatus(), playersMap.get(PlayerType.ME).isLastShootDestructive());
-
+        
     }
 
     public void setGameMode(GameMode gameMode) {

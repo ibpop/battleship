@@ -10,11 +10,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 public class GridPanelMouseListener implements MouseListener, MouseMotionListener {
+
     private PlayerContainer playerContainer;
     private int currentShipSize;
     private MainFrame mainFrame;
 
-    public GridPanelMouseListener(){
+    public GridPanelMouseListener() {
         playerContainer = PlayerContainer.getInstance();
         mainFrame = MainFrame.getInstance();
     }
@@ -22,12 +23,12 @@ public class GridPanelMouseListener implements MouseListener, MouseMotionListene
     @Override
     public void mouseClicked(MouseEvent e) {
         GridPanel component = (GridPanel) e.getComponent();
-        switch (playerContainer.getGameState()){
+        switch (playerContainer.getGameState()) {
             case SPACE_SHIP:
-                if(component.chooseLastShip()){
+                if (component.chooseLastShip()) {
                     playerContainer.getCurrentPlayer().setShip(currentShipSize, component.getLastHighlightedShip());
                     MainFrame mainFrame = MainFrame.getInstance();
-                    int shipsLeft = playerContainer.getCurrentPlayer().getNumberOfShips();
+                    int shipsLeft = playerContainer.getCurrentPlayer().getNumberOfShipsToSet();
                     mainFrame.getSpaceShipsPanel().setShipsLeftLabel(shipsLeft);
                 }
                 break;
@@ -35,7 +36,7 @@ public class GridPanelMouseListener implements MouseListener, MouseMotionListene
                 int rowNumber = component.getRowFromY(e.getY());
                 int columnNumber = component.getColumnFromX(e.getX());
                 playerContainer.shootEnemy(rowNumber, columnNumber);
-                if(playerContainer.isEnemyBeaten()){
+                if (playerContainer.isEnemyBeaten()) {
                     mainFrame.setFinishedPanel("Wygrałeś");
                     break;
                 }
@@ -48,8 +49,16 @@ public class GridPanelMouseListener implements MouseListener, MouseMotionListene
 
                 mainFrame = MainFrame.getInstance();
                 mainFrame.shootMe(enemyShootRow, enemyShootColumn);
-                if(playerContainer.isMeBeaten())
+                
+                int myShipsLeft = playerContainer.getCurrentPlayer().getNumberOfShips();
+                mainFrame.getMyShipPanel().setLabel(myShipsLeft);
+                
+                int enemyShipsLeft = playerContainer.getEnemyPlayer().getNumberOfShips();
+                mainFrame.getEnemyShipPanel().setLabel(enemyShipsLeft);
+                
+                if (playerContainer.isMeBeaten()) {
                     mainFrame.setFinishedPanel("Przegrałeś");
+                }
                 break;
         }
 
@@ -83,11 +92,11 @@ public class GridPanelMouseListener implements MouseListener, MouseMotionListene
     @Override
     public void mouseMoved(MouseEvent e) {
         GridPanel component = (GridPanel) e.getComponent();
-        switch (playerContainer.getGameState()){
+        switch (playerContainer.getGameState()) {
             case SPACE_SHIP:
                 currentShipSize = playerContainer.getCurrentPlayer().getShipSizeToSet();
 
-                if(currentShipSize == 0){
+                if (currentShipSize == 0) {
                     MainFrame mainFrame = MainFrame.getInstance();
                     mainFrame.getSpaceShipsPanel().setPlayButtonEnabled(true);
                 }
