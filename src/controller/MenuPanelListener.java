@@ -33,6 +33,13 @@ public class MenuPanelListener implements ActionListener{
         if(playerContainer == null){
             playerContainer = PlayerContainer.getInstance();
         }
+        
+        if(source instanceof JMenuItem){
+            String buttonLabel = ((JMenuItem) source).getName();
+            
+            if(buttonLabel.equals("MENU_CLOSE"))
+                System.exit(0);
+        }
 
         if(source instanceof JButton){
             String buttonLabel = ((JButton) source).getName();
@@ -67,7 +74,7 @@ public class MenuPanelListener implements ActionListener{
                     mainFrame.hideEnemyShips();
                     break;
                 case "EXIT":
-                    //dopisac exit
+                    System.exit(0);
                     break;
                 default:
                     break;

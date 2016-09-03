@@ -1,6 +1,7 @@
 package view;
 
 
+import controller.MenuPanelListener;
 import model.MyRectangleContainer;
 import model.PlayerContainer;
 
@@ -21,6 +22,7 @@ public class MainFrame extends JFrame {
     private GridBagConstraints gridBagConstraints;
     private PlayerPanel playerPanel;
     private PlayerContainer playerContainer;
+    private MenuPanelListener menuPanelListener;
 
     private MainFrame(){
         super();
@@ -41,11 +43,13 @@ public class MainFrame extends JFrame {
         allPanel.add(menuPanel, gridBagConstraints);
 
         add(allPanel);
-
+        menuPanelListener = MenuPanelListener.getInstance();
         closeMenuItem = new JMenuItem("Zamknij");
-
+        closeMenuItem.setName("MENU_CLOSE");
+        closeMenuItem.addActionListener(menuPanelListener);
+        
         menu = new JMenu("Opcje");
-
+        
         menu.add(closeMenuItem);
         menuBar = new JMenuBar();
         menuBar.add(menu);
