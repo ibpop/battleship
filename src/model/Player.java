@@ -88,4 +88,13 @@ public class Player {
         else
             return false;
     }
+    
+    public int getNumberOfShips(){
+        int number = 0;
+        
+        for(int i = 0; i < shipToSet.length; i++)
+            number += shipToSet[i];
+            
+        return number;
+    }
 }

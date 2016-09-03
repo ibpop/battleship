@@ -24,8 +24,12 @@ public class GridPanelMouseListener implements MouseListener, MouseMotionListene
         GridPanel component = (GridPanel) e.getComponent();
         switch (playerContainer.getGameState()){
             case SPACE_SHIP:
-                if(component.chooseLastShip())
+                if(component.chooseLastShip()){
                     playerContainer.getCurrentPlayer().setShip(currentShipSize, component.getLastHighlightedShip());
+                    MainFrame mainFrame = MainFrame.getInstance();
+                    int shipsLeft = playerContainer.getCurrentPlayer().getNumberOfShips();
+                    mainFrame.getSpaceShipsPanel().setShipsLeftLabel(shipsLeft);
+                }
                 break;
             case GAME:
                 int rowNumber = component.getRowFromY(e.getY());
