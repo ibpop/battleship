@@ -91,7 +91,7 @@ public class ComputerPlayer extends Player {
 
         for(int i=0; i < shipToHit.length; i++){
             if(shipToHit[i] > 0){
-                for(int j =0; j < shipToHit[i]; j++) {
+                for(int j = 0; j < shipToHit[i]; j++) {
                     setProbabilityForShip(i + 1, ShipPosition.HORIZONTAL);
                     setProbabilityForShip(i + 1, ShipPosition.VERTICAL);
                 }
@@ -118,8 +118,9 @@ public class ComputerPlayer extends Player {
                     }
                     tmp.removeLastShip();
                     //to do refactor zeby pousuwac status isNear ukrywam wszystkie
-                    tmp.hideShips();
+                    //tmp.hideShips();
                 }
+                tmp.hideShips();
             }
             //break;
         }
