@@ -1,6 +1,5 @@
 package view;
 
-
 import controller.MenuPanelListener;
 import model.MyRectangleContainer;
 import model.PlayerContainer;
@@ -32,16 +31,15 @@ public class MainFrame extends JFrame {
     private PlayerContainer playerContainer;
     private MenuPanelListener menuPanelListener;
 
-    private MainFrame(){
+    private MainFrame() {
         super();
         playerContainer = PlayerContainer.getInstance();
 
         playerPanel = new PlayerPanel();
 
         myShipPanel = new GamePanel("Moje statki");
-        myShipPanel.setLabel(5);
         enemyShipPanel = new GamePanel("Statki wroga");
-        enemyShipPanel.setLabel(5);
+        
         spaceShipsPanel = new SpaceShipPanel();
 
         allPanel = new JPanel();
@@ -57,9 +55,9 @@ public class MainFrame extends JFrame {
         closeMenuItem = new JMenuItem("Zamknij");
         closeMenuItem.setName("MENU_CLOSE");
         closeMenuItem.addActionListener(menuPanelListener);
-        
+
         menu = new JMenu("Opcje");
-        
+
         menu.add(closeMenuItem);
         menuBar = new JMenuBar();
         menuBar.add(menu);
@@ -73,14 +71,14 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public void setPlayerPanel(){
+    public void setPlayerPanel() {
         allPanel.remove(menuPanel);
         allPanel.add(playerPanel);
         validate();
         repaint();
     }
 
-    public void setGamePanel(){
+    public void setGamePanel() {
         allPanel.remove(spaceShipsPanel);
 
         gridBagConstraints.weightx = 1;
@@ -96,7 +94,6 @@ public class MainFrame extends JFrame {
         enemyShipPanel.setCells(playerContainer.getEnemyShip());
         playerContainer.getEnemyShip().getMyRectangles();
 
-
         gridBagConstraints.gridx = 1;
         myShipPanel.removeAllListeners();
         //myShipPanel.setCells(new MyRectangleContainer(spaceShipsPanel.getGamePanel().getCells().getMyRectangles()));
@@ -109,7 +106,7 @@ public class MainFrame extends JFrame {
         repaint();
     }
 
-    public void setFinishedPanel(String message){
+    public void setFinishedPanel(String message) {
         JPanel finishedPanel = new JPanel();
         finishedPanel.add(new JLabel(message));
         allPanel.remove(myShipPanel);
@@ -119,10 +116,9 @@ public class MainFrame extends JFrame {
         validate();
     }
 
-    public static MainFrame getInstance(){
+    public static MainFrame getInstance() {
         return mainFrame;
     }
-
 
     public void setSpaceShipsPanel() {
         allPanel.remove(playerPanel);
@@ -130,12 +126,16 @@ public class MainFrame extends JFrame {
         gridBagConstraints.weighty = 1;
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+
+        int shipsLeft = playerContainer.getCurrentPlayer().getNumberOfShipsToSet();
+        spaceShipsPanel.setShipsLeftLabel(shipsLeft);
+
         allPanel.add(spaceShipsPanel, gridBagConstraints);
         validate();
         repaint();
     }
 
-    public String getPlayerName(){
+    public String getPlayerName() {
         return playerPanel.getPlayerName();
     }
 
@@ -143,19 +143,19 @@ public class MainFrame extends JFrame {
         return spaceShipsPanel;
     }
 
-    public void hideEnemyShips(){
+    public void hideEnemyShips() {
         enemyShipPanel.hideShips();
     }
 
-    public void shootMe(int rowNumber, int columnNumber){
+    public void shootMe(int rowNumber, int columnNumber) {
         myShipPanel.shoot(rowNumber, columnNumber);
     }
 
-    public PlayerContainer.GameMode getGameMode(){
+    public PlayerContainer.GameMode getGameMode() {
         return playerPanel.getGameMode();
     }
 
-    public MyRectangleContainer getMySpeceShipRectangles(){
+    public MyRectangleContainer getMySpeceShipRectangles() {
         return spaceShipsPanel.getGamePanel().getCells();
     }
 }
